@@ -219,6 +219,9 @@ class JobManagerActor(dao: JobDAO,
           }
         }
       } finally {
+        if (sparkContext.appName==null || sparkContext.appName.isEmpty()){
+          sparkContext.stop()
+        }
         org.slf4j.MDC.remove("jobId")
       }
     }.andThen {
